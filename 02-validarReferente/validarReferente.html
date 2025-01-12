@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validar Referente</title>
+  <link rel="stylesheet" href="./css/normalize.css">
+  <link rel="stylesheet" href="./css/validarReferenteDesktop.css">
+  <link rel="stylesheet" href="./css/validarReferenteMobile.css">
+  <link rel="stylesheet" href="./css/sweetAlertStyle.css">
+  <link rel='stylesheet' href='./css/sweetalert2.css'>
+  <script src='./js/sweetalert2.min.js'></script>
+</head>
+
+<body>
+  <!-- Contenedor General -->
+  <div class="contenedorGeneral">
+    <!-- Formulario -->
+    <div class="formulario">
+      <div class="tituloPrincipal">Validar Referente</div>
+      <!-- Input referente -->
+      <label class="label">
+        <input type="text" class="label__input" id="inputReferente" placeholder=" " autocomplete="off">
+        <span class="label__span">Referente</span>
+      </label>
+      <!-- Botón de validación -->
+      <button class="btnValidarReferente" id="btnValidarReferente">Validar</button>
+      <!-- Links inferiores -->
+      <div class="contenedorLinksInferiores">
+        <a href="../04-iniciarSesion/iniciarSesion.html">Iniciar Sesión</a>
+        <a href="../03-registrarse/registrarse.html">Registrarse</a>
+        <a href="../index.html">Salir</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/validarReferente.js" defer></script>
+  <script src="./js/sweetAlertScript.js" defer></script>
+</body>
+
+</html>
