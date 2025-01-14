@@ -1,134 +1,164 @@
-// "use strict";
+setTimeout(() => {
+  ("use strict");
+  // -----------------------------------------------------------------
+  // VARIABLES GLOBALES
+  // -----------------------------------------------------------------
 
-// Variables Globales
+  // -----------------------------------------------------------------
+  // REFERENCIAS DEL DOM
+  // -----------------------------------------------------------------
+  const inputReferente = document.getElementById("inputReferente");
+  const btnValidarReferente = document.getElementById("btnValidarReferente");
 
-// Referencias del DOM
-const inputReferente = document.getElementById("inputReferente");
-const btnValidarReferente = document.getElementById("btnValidarReferente");
+  // -----------------------------------------------------------------
+  // FUNCIONES
+  // -----------------------------------------------------------------
+  // BORRAR INPUTS
+  // -----------------------------------------------------------------
+  const borrarInputs = () => {
+    document.querySelectorAll("input").forEach((input) => (input.value = ""));
+  };
 
-// Funciones
-// Validar formato de email
-function validarEmail(email) {
-  let regex = /^\w+@\w+\.\w+$/gi;
-  return regex.test(email);
-}
+  // -----------------------------------------------------------------
+  // VALIDAR EMAIL
+  //------------------------------------------------------------------
+  const emailValido = (email) => {
+    // Expresion regular con la estructura basica de un email
+    let regex = /^\w+@\w+\.\w+$/gi;
 
-// Sweet Alert Error
-function sweetAlertError(mensaje) {
-  Swal.fire({
-    position: "center",
-    width: "300px",
-    heightAuto: false,
-    showConfirmButton: false,
-    title: mensaje,
-    background: "#E6B0AA",
-    icon: "error",
-    iconColor: "red",
-    color: "red",
-    timer: 2000,
-    customClass: {
-      title: "swal-title", // Clase personalizada para el título
-    },
-  });
-}
+    // Resultado de la validacion
+    return regex.test(email) ? true : false;
+  };
 
-// Sweet Alert Exito
-function sweetAlertExito(mensaje) {
-  Swal.fire({
-    position: "center",
-    width: "300px",
-    heightAuto: false,
-    showConfirmButton: false,
-    title: mensaje,
-    background: "#ABEBC6",
-    icon: "success",
-    iconColor: "green",
-    color: "green",
-    timer: 2000,
-  });
-}
+  // -----------------------------------------------------------------
+  // SWEET ALERT DE ERROR
+  //------------------------------------------------------------------
+  const sweetAlertError = (message, fontSize) => {
+    Swal.fire({
+      position: "center",
+      width: "250px",
+      heightAuto: false,
+      showConfirmButton: false,
+      background: "#E6B0AA",
+      icon: "error",
+      iconColor: "red",
+      color: "red",
+      timer: 1300,
+      // Personaliza el tamaño del mensaje
+      html: `<div style="font-size: ${fontSize}; text-align: center; font-weight:bold">${message}</div>`,
+    });
+  };
 
-// Sweet Alert de confirmacion
-const sweetAlertConfirmacion = (mensaje, callback) => {
-  Swal.fire({
-    title: mensaje,
-    position: "center",
-    icon: "warning",
-    iconColor: "#F39C12",
-    background: "#F9E79F",
-    width: "300px",
-    heightAuto: false,
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Si",
-    cancelButtonText: "No",
-    customClass: {
-      title: "swal-title", // Clase personalizada para el título
-    },
-  }).then((result) => {
-    if (result.isConfirmed) {
-      callback(true);
-    } else {
-      callback(false);
-    }
-  });
-};
+  // -----------------------------------------------------------------
+  // SWEET ALERT DE EXITO
+  //------------------------------------------------------------------
+  const sweetAlertExito = (message, fontSize) => {
+    Swal.fire({
+      position: "center",
+      width: "250px",
+      heightAuto: false,
+      showConfirmButton: false,
+      background: "#ABEBC6",
+      icon: "success",
+      iconColor: "green",
+      color: "green",
+      timer: 1300,
+      // Personaliza el tamaño del mensaje
+      html: `<div style="font-size: ${fontSize}; text-align: center; font-weight:bold">${message}</div>`,
+    });
+  };
 
-// -----------------------------------------------------------------
-// PROGRAMA PRINCIPAL
-// -----------------------------------------------------------------
-
-// Escuchar el evento del botón
-btnValidarReferente.addEventListener("click", async () => {
-  const email = inputReferente.value;
-
-  // Validar el formato del email
-  if (!validarEmail(email)) {
-    sweetAlertError("Email no válido.");
-    return;
+  // -----------------------------------------------------------------
+  // SWEET ALERT DE CONFIRMACION
+  //------------------------------------------------------------------
+  function sweetAlertConfirmacion(mensaje, tamanoTitulo, callback) {
+    Swal.fire({
+      title: mensaje,
+      position: "center",
+      icon: "warning",
+      iconColor: "#F39C12",
+      background: "#F9E79F",
+      width: "300px",
+      heightAuto: false,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+      // Modificar el estilo del título directamente
+      didOpen: () => {
+        const title = document.querySelector(".swal2-title");
+        if (title) {
+          title.style.fontSize = tamanoTitulo; // Ajustar el tamaño del título
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+    });
   }
 
-  // Preparar los datos para enviar
-  const data = { email };
-
-  try {
-    // Realizar la solicitud POST al servidor
-    const response = await fetch("php/validarReferente.php", {
+  // -----------------------------------------------------------------
+  // CONSULTA DE REFERENTE EN BASE DE DATOS
+  //------------------------------------------------------------------
+  const consultarReferente = (data) => {
+    // Envio de datos Js a variables PHP con fetch
+    fetch("php/validarReferente.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    })
+      // Respuesta desde archivo PHP (mensaje)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Respuesta PHP: ", data);
+        // Si se encontró al referente...
+        if (data.mensaje === true) {
+          sweetAlertExito("Referente confirmado", ".8em");
+          borrarInputs();
+          // Espera un tiempo para solicitar confiracion de registro
+          setTimeout(() => {
+            sweetAlertConfirmacion(
+              "¿Deseas registrarte?",
+              "1.1em",
+              (confirmado) => {
+                if (confirmado) {
+                  window.location.href = "../03-registrarse/registrarse.html";
+                } else {
+                  window.location.href = "./validarReferente.html";
+                }
+              }
+            );
+          }, 1500);
+        } else {
+          sweetAlertError("Referente no existe", ".8em");
+        }
+      })
 
-    const result = await response.json();
+      // Captura de errores
+      .catch((error) => console.error("Error:", error));
+  };
 
-    // Verificar la respuesta
-    if (result.success) {
-      if (result.exists) {
-        sweetAlertExito("");
-        setTimeout(() => {
-          // window.location.href = "../index.html";
-          inputReferente.value = "";
-        }, 1000);
-        setTimeout(() => {
-          sweetAlertConfirmacion("Deseas registrarte?", (respuesta) => {
-            if (respuesta) {
-              window.location.href = "../03-registrarse/registrarse.html";
-            } else {
-              window.location.href = "./validarReferente.html";
-            }
-          });
-        }, 2000);
-      } else {
-        sweetAlertError("Referente no registrado");
-      }
+  // -----------------------------------------------------------------
+  // PROGRAMA PRINCIPAL
+  // -----------------------------------------------------------------
+  btnValidarReferente.addEventListener("click", async () => {
+    if (inputReferente.value === "") {
+      sweetAlertError("Ingresa referente", "1em");
     } else {
-      alert("Ocurrió un error: " + result.message);
+      const email = inputReferente.value; // Obtengo email del referente
+      if (!emailValido(inputReferente.value)) {
+        sweetAlertError("Email no válido", "1em");
+      } else {
+        const data = { email }; //Convierto dato a JSON para enviarlo a PHP
+        console.log(data); //Verifico que el dato este en formato JSON
+        consultarReferente(data); //Realizo consulta a la base de datos
+      }
     }
-  } catch (error) {
-    console.error("Error en la solicitud:", error);
-    sweetAlertError("Error en la consulta");
-  }
-});
+  });
+}, 50);

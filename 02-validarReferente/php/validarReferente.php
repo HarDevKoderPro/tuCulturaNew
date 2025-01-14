@@ -1,45 +1,53 @@
 <?php
-header("Content-Type: application/json");
+// Obtener los datos a enviar JSON desde JavaScript
+$data = json_decode(file_get_contents("php://input"), true);
+$mensaje = '';
 
-// Configuración de la base de datos
+// Configurar credenciales de conexión a la base de datos
 // $host = "190.8.176.115"; // Desarrollo Remoto
 $host = "localhost"; // Desarrollo Local
 $user = "tucultur";      // Usuario de MySQL
 $password = "@GWMU!J4p-mgyTJ7";      // Contraseña de MySQL
 $dbname = "tuculturadb"; // Nombre de la base de datos
 
-// Conexión a MySQL
+// Conectar a base de datos MySQL
 $conn = new mysqli($host, $user, $password, $dbname);
+
+// Establecer la codificación de caracteres
+mysqli_set_charset($conn, "utf8mb4");
 
 // Verificar la conexión
 if ($conn->connect_error) {
   die(json_encode(["success" => false, "message" => "Error de conexión: " . $conn->connect_error]));
 }
 
-// Establecer la codificación de caracteres
-$conn->set_charset("utf8mb4");
+// Compruebo si existe el dato a tratar
+if (isset($data['email'])) {
 
-// Leer el cuerpo de la solicitud
-$data = json_decode(file_get_contents("php://input"), true);
+  // Paso contenido de variables JS a variables PHP
+  // Elimino espacios al inicio y al final
+  $email = trim($data['email']);
 
-// Validar que se envió el email
-if (!isset($data["email"]) || empty($data["email"])) {
-  echo json_encode(["success" => false, "message" => "Email no enviado."]);
-  exit;
-}
+  // Sanitizo las variable para evitar inyección de código
+  $email = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
-$email = $conn->real_escape_string($data["email"]);
+  // Realizo la consulta del referente
+  $sql = "SELECT 1 FROM referentes WHERE email = '$email' LIMIT 1";
 
-// Realizar la consulta
-$sql = "SELECT 1 FROM referentes WHERE email = '$email' LIMIT 1";
-$result = $conn->query($sql);
+  // Guardo resultado de la consulta en variable
+  $result = $conn->query($sql);
 
-if ($result && $result->num_rows > 0) {
-  // El email existe
-  echo json_encode(["success" => true, "exists" => true]);
+  // Si el email consultado existe...
+  if ($result && $result->num_rows > 0) {
+    echo json_encode(['mensaje' => true]); //devuelve true
+
+    // Si el email consultado no existe...
+  } else {
+    echo json_encode(['mensaje' => false]); //Devuelve false
+  }
+  
 } else {
-  // El email no existe
-  echo json_encode(["success" => true, "exists" => false]);
+  echo json_encode(['status' => 'error', 'message' => 'Datos faltantes']);
 }
 
 // Cerrar la conexión

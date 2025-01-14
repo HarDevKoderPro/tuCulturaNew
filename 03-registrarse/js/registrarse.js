@@ -76,7 +76,7 @@ setTimeout(() => {
       color: "green",
       timer: 1300,
       // Personaliza el tamaño del mensaje
-      html: `<div style="font-size: ${fontSize}; text-align: center;">${message}</div>`,
+      hhtml: `<div style="font-size: ${fontSize}; text-align: center; font-weight:bold">${message}</div>`,
     });
   };
 
@@ -95,7 +95,7 @@ setTimeout(() => {
       color: "red",
       timer: 1300,
       // Personaliza el tamaño del mensaje
-      html: `<div style="font-size: ${fontSize}; text-align: center;">${message}</div>`,
+      html: `<div style="font-size: ${fontSize}; text-align: center; font-weight:bold">${message}</div>`,
     });
   };
 
