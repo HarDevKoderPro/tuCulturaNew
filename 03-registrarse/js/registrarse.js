@@ -43,22 +43,61 @@ setTimeout(() => {
   };
 
   //---------------------------------------------------------------
+  // VALIDAR INPUTS VACIOS
+  //---------------------------------------------------------------
+  const hayInputsVacios = () => {
+    const inputsArr = document.querySelectorAll("input");
+    return [...inputsArr].some((input) => input.value === "");
+  };
+
+  //---------------------------------------------------------------
+  // VALIDAR EMAIL
+  //---------------------------------------------------------------
+  const emailValido = (email) => {
+    // Expresion regular con la estructura basica de un email
+    let regex = /^\w+@\w+\.\w+$/gi;
+
+    // Resultado de la validacion
+    return regex.test(email) ? true : false;
+  };
+
+  //---------------------------------------------------------------
   // SWEET ALERT DE EXITO
   //---------------------------------------------------------------
-  function sweetAlertExito(mensaje) {
+  const sweetAlertExito = (message, fontSize) => {
     Swal.fire({
       position: "center",
-      width: "180px",
+      width: "200px",
       heightAuto: false,
       showConfirmButton: false,
-      title: mensaje,
       background: "#ABEBC6",
       icon: "success",
       iconColor: "green",
       color: "green",
-      timer: 1000,
+      timer: 1300,
+      // Personaliza el tamaño del mensaje
+      html: `<div style="font-size: ${fontSize}; text-align: center;">${message}</div>`,
     });
-  }
+  };
+
+  //---------------------------------------------------------------
+  // SWEET ALERT DE ERROR
+  //---------------------------------------------------------------
+  const sweetAlertError = (message, fontSize) => {
+    Swal.fire({
+      position: "center",
+      width: "200px",
+      heightAuto: false,
+      showConfirmButton: false,
+      background: "#E6B0AA",
+      icon: "error",
+      iconColor: "red",
+      color: "red",
+      timer: 1300,
+      // Personaliza el tamaño del mensaje
+      html: `<div style="font-size: ${fontSize}; text-align: center;">${message}</div>`,
+    });
+  };
 
   //---------------------------------------------------------------
   // PASAR DATOS JS A PHP Y ENVIARLOS AL SERVIDOR
@@ -76,7 +115,7 @@ setTimeout(() => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Datos PHP: ", data);
-        sweetAlertExito("");
+        sweetAlertExito("Datos Enviados!", "1em");
         borrarInputs();
       })
 
@@ -87,11 +126,20 @@ setTimeout(() => {
   // -----------------------------------------------------------------
   // PROGRAMA PRINCIPAL
   // -----------------------------------------------------------------
+
   // Acciones al presionar botón de envío de datos
   btnRegistrar.addEventListener("click", () => {
-    // obtengo datos a enviar (inputs)
-    let datosUsuario = obtenerDatosInputs();
-    //Envio datos al servidor (base de datos)
-    enviarDatosServer(datosUsuario);
+    if (hayInputsVacios()) {
+      sweetAlertError("Faltan Datos...", "1em");
+    } else {
+      // obtengo datos a enviar (inputs)
+      let datosUsuario = obtenerDatosInputs();
+      if (emailValido(datosUsuario.email) && emailValido(datosUsuario.referidoPor)) {
+        //Envio datos al servidor (base de datos)
+        enviarDatosServer(datosUsuario);
+      } else {
+        sweetAlertError("Email no válido", "1em");
+      }
+    }
   });
 }, 50);
