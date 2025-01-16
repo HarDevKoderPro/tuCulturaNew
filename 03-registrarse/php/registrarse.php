@@ -8,7 +8,7 @@ $mensaje = '';
 $host = "localhost"; // Desarrollo Local
 $user = "tucultur";      // Usuario de MySQL
 $password = "@GWMU!J4p-mgyTJ7";      // Contraseña de MySQL
-$dbname = "tuculturadb"; // Nombre de la base de datos
+$dbname = "tucultur_pruebas"; // Nombre de la base de datos
 
 // Conectar a base de datos MySQL
 $conn = new mysqli($host, $user, $password, $dbname);
