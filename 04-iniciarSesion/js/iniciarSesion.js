@@ -1,13 +1,16 @@
 "use strict";
 
-import libreria from "./libreria.js";
+setTimeout(()=>{
+  // Referencias a elementos del DOM
+  const getEl = (id) => document.getElementById(id);
+  const inputEmail = getEl('inputEmail');
+  const inputPass = getEl('inputPass');
+  const btnIniciarSesion = getEl('btnIniciarSesion');
+  
+  // Programa Principal
+  btnIniciarSesion.addEventListener('click', ()=>{
+    window.location.href = '../00-enConstruccion/enConstruccion.html';
+  })
 
-// Variables Globales
 
-// Referencias del DOM
-
-// Funciones
-
-// -----------------------------------------------------------------
-// PROGRAMA PRINCIPAL
-// -----------------------------------------------------------------
+},50);
