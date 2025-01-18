@@ -2,15 +2,36 @@
 
 // Clase de Funciones
 export class Libreria {
-  // Borrado de Inputs
+  // Validar Inputs Vacíos
+  static hayInputsVacios() {
+    const inputsArr = document.querySelectorAll("input");
+    return [...inputsArr].some((input) => input.value === "");
+  }
+
+  // Validar Email
+  static emailValido(email) {
+    let regex = /^\w+@\w+\.\w+$/gi;
+    return regex.test(email) ? true : false;
+  }
+
+  // Borrar Inputs
   static borrarInputs() {
     document.querySelectorAll("input").forEach((input) => (input.value = ""));
   }
 
-  // Validación de Email
-  static emailValido(email) {
-    let regex = /^\w+@\w+\.\w+$/gi;
-    return regex.test(email) ? true : false;
+  // Obtener datos de los inputs
+  static obtenerDatosInputs() {
+    let datosUsuario = {
+      nombre: inputNombre.value,
+      apellido: inputApellido.value,
+      documento: inputDocumento.value,
+      telefono: inputTelefono.value,
+      email: inputEmail.value,
+      pass: inputPass.value,
+      referidoPor: inputReferidoPor.value,
+    };
+
+    return datosUsuario;
   }
 
   // SweetAlert de Error
@@ -113,6 +134,28 @@ export class Libreria {
         } else {
           Libreria.sweetAlertError("Referente no existe", ".8em");
         }
+      })
+
+      // Captura de errores
+      .catch((error) => console.error("Error:", error));
+  }
+
+  // Enviar datos al servidor
+  static enviarDatosServer(datosUsuario) {
+    // Envio de datos Js a variables PHP con fetch
+    fetch("php/registrarse.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datosUsuario),
+    })
+      // Respuesta desde archivo PHP (contenido variables PHP)
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("Datos PHP: ", data);
+        Libreria.sweetAlertExito("Datos Enviados!", "1em");
+        Libreria.borrarInputs();
       })
 
       // Captura de errores
