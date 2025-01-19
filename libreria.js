@@ -99,15 +99,15 @@ export class Libreria {
     });
   }
 
-  // Consultar Referente en Base de Datos
-  static consultarReferente(data) {
+  // Consultar Datos en Base de Datos
+  static consultarDato(datosAEnviar, rutaPhp, mensajeExito, mensajeError, url) {
     // Envio de datos Js a variables PHP con fetch
-    fetch("php/validarReferente.php", {
+    fetch(rutaPhp, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(datosAEnviar),
     })
       // Respuesta desde archivo PHP (mensaje)
       .then((response) => response.json())
@@ -115,24 +115,11 @@ export class Libreria {
         console.log("Respuesta PHP: ", data);
         // Si se encontró al referente...
         if (data.mensaje === true) {
-          Libreria.sweetAlertExito("Referente confirmado", ".8em");
+          Libreria.sweetAlertExito(mensajeExito, ".8em");
           Libreria.borrarInputs();
-          // Espera un tiempo para solicitar confirmacion de registro
-          setTimeout(() => {
-            Libreria.sweetAlertConfirmacion(
-              "¿Deseas registrarte?",
-              "1.1em",
-              (confirmado) => {
-                if (confirmado) {
-                  window.location.href = "../03-registrarse/registrarse.html";
-                } else {
-                  window.location.href = "./validarReferente.html";
-                }
-              }
-            );
-          }, 1500);
+          setTimeout(() => (window.location.href = url), 1500);
         } else {
-          Libreria.sweetAlertError("Referente no existe", ".8em");
+          Libreria.sweetAlertError(mensajeError, ".8em");
         }
       })
 
