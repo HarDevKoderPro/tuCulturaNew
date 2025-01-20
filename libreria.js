@@ -2,6 +2,11 @@
 
 // Clase de Funciones
 export class Libreria {
+  // Redireccionar a página
+  static redireccionarA(ruta){
+    window.location.href = ruta;
+  }
+
   // Validar Inputs Vacíos
   static hayInputsVacios() {
     const inputsArr = document.querySelectorAll("input");
@@ -100,8 +105,9 @@ export class Libreria {
   }
 
   // Consultar Datos en Base de Datos
-  static consultarDato(datosAEnviar, rutaPhp, mensajeExito, mensajeError, url) {
+  static consultarDatos(datosAEnviar, rutaPhp, callback) {
     // Envio de datos Js a variables PHP con fetch
+    // Ruta con respecto al archivo html que se este utilizando
     fetch(rutaPhp, {
       method: "POST",
       headers: {
@@ -113,14 +119,8 @@ export class Libreria {
       .then((response) => response.json())
       .then((data) => {
         console.log("Respuesta PHP: ", data);
-        // Si se encontró al referente...
-        if (data.mensaje === true) {
-          Libreria.sweetAlertExito(mensajeExito, ".8em");
-          Libreria.borrarInputs();
-          setTimeout(() => (window.location.href = url), 1500);
-        } else {
-          Libreria.sweetAlertError(mensajeError, ".8em");
-        }
+        // Ejecutar el callback con los datos recibidos
+        callback(data);
       })
 
       // Captura de errores
