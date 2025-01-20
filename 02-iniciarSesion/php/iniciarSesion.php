@@ -1,7 +1,7 @@
 <?php
 // Obtener los datos a enviar JSON desde JavaScript
 $data = json_decode(file_get_contents("php://input"), true);
-$mensaje = '';
+$respuesta = '';
 
 // Configurar credenciales de conexión a la base de datos
 // $host = "190.8.176.115"; // Desarrollo Remoto
@@ -46,14 +46,14 @@ if (isset(
 
   // Verifico si ambas consultas son correctas
   if ($result && $result->num_rows > 0 && $result2 && $result2->num_rows > 0) {
-    echo json_encode(['mensaje' => true]); //devuelve true  
+    echo json_encode(['respuesta' => true]); //devuelve true  
   } else {
-    echo json_encode(['mensaje' => false]); //devuelve false  
+    echo json_encode(['respuesta' => false]); //devuelve false  
   }
 
   // Si el email consultado no existe...
 } else {
-  echo json_encode(['status' => 'error', 'message' => 'Datos faltantes']);
+  echo json_encode(['status' => 'error', 'respuesta' => 'Datos faltantes']);
 }
 
 // Cerrar la conexión

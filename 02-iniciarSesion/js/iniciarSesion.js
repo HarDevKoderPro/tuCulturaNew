@@ -14,25 +14,28 @@ btnIniciarSesion.addEventListener("click", () => {
   // Verifico que no hayan campos vacíos
   let hayInputsVacios = Libreria.hayInputsVacios();
   if (hayInputsVacios) {
-    Libreria.sweetAlertError("Faltan datos!", "1em");
+    Libreria.sweetAlert('error', 'Faltan datos!', '0.8em');
   } else {
     let esEmailValido = Libreria.emailValido(inputEmail.value);
     if (!esEmailValido) {
-      Libreria.sweetAlertError("Email no válido...");
+      Libreria.sweetAlert('error', 'Email no válido...', '0.8em');
     } else {
       let usuarioAVerificar = {
         email: inputEmail.value,
         pass: inputPass.value,
       };
 
-      let rutaPhp = "php/iniciarSesion.php";
-      Libreria.consultarDato(
-        usuarioAVerificar,
-        rutaPhp,
-        "Acceso concedido!",
-        "Email o Contraseña errados!",
-        "../00-enConstruccion/enConstruccion.html"
-      );
+      // Validación de Email y pass para permitir login del usuario
+      Libreria.enviarDatosParaConsultas(usuarioAVerificar,"php/iniciarSesion.php", (data)=>{
+        if(data.respuesta){
+          Libreria.sweetAlert('exito', 'Acceso concedido!', '0.8em');
+          setTimeout(() => {
+            Libreria.redireccionarA("../00-enConstruccion/enConstruccion.html");
+          }, 1500);
+        }else{
+          Libreria.sweetAlert('error', 'Email o contraseña errados!', '0.8em');
+        }
+      });
     }
   }
 });
