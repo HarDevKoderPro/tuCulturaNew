@@ -42,9 +42,10 @@ btnRegistrar.addEventListener("click", () => {
         } else if (!data.emailExists && !data.referenteExists) {
           Libreria.sweetAlert('error', 'Referente no registrado!','0.8em');
         } else {
-          //Envio datos al servidor (base de datos)
+          //Envio datos al servidor para registro (base de datos)
           Libreria.enviarDatosParaConsultas(datosUsuario, 'php/registrarse.php', (data)=>{
             Libreria.sweetAlert('exito', 'Registro Exitoso!', '0.8em');
+            console.log(data.respuesta);
             setTimeout(() => {
               Libreria.redireccionarA('../00-enConstruccion/enConstruccion.html');
             }, 1500);

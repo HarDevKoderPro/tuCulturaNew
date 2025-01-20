@@ -1,7 +1,7 @@
 <?php
 // Obtener los datos a enviar JSON desde JavaScript
 $data = json_decode(file_get_contents("php://input"), true);
-$mensaje = '';
+$respuesta = '';
 
 // Configurar credenciales de conexión a la base de datos
 // $host = "190.8.176.115"; // Desarrollo Remoto
@@ -50,39 +50,28 @@ if (isset(
   $pass = htmlspecialchars($pass, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
   $referidoPor = htmlspecialchars($referidoPor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
-  // Insertar datos en la tabla registros
+  // Insertar datos en la tabla registros (primera consulta)
   $sqlInsertRegistro = "INSERT INTO registros (nombre, apellido, documento, telefono, email, pass, referidoPor) 
     VALUES ('$nombre', '$apellido', '$documento', '$telefono', '$email', '$pass', '$referidoPor')";
-
+  // Si se registra exitosamente el usuario, se procede a guardar al referente
   if ($conn->query($sqlInsertRegistro) === TRUE) {
-
-    // Insertar el email en la tabla referentes
+    // Insertar el email en la tabla referentes (segunda consulta)
     $sqlInsertReferente = "INSERT INTO referentes (email) VALUES ('$email')";
     if ($conn->query($sqlInsertReferente) === TRUE) {
-      $mensaje = 'Datos enviados exitosamente!';
+      $respuesta = 'Datos enviados exitosamente!';
+    } else {
+      $respuesta = 'Error al almacenar el referente: ' . $conn->error;
     }
   } else {
-    $mensaje = 'Error al almacenar los datos: ' . $conn->error;
+    $respuesta = 'Error al almacenar los datos: ' . $conn->error;
   }
 
-  // Respuesta en Array para usar con JS
-  echo json_encode([
-    'nombre' => $nombre,
-    'apellido' => $apellido,
-    'documento' => $documento,
-    'telefono' => $telefono,
-    'email' => $email,
-    'pass' => $pass,
-    'referidoPor' => $referidoPor,
-    'mensaje' => $mensaje,
-  ]);
+  // Respuesta del servidor
+  echo json_encode(['respuesta' => $respuesta]);
 
-  //Respuesta simple para alerts
-  // echo json_encode(['mensaje' => $mensaje]);
-
-  // Mensaje de error si falta alguno de los datos a enviar (input vacío)
+  // Si falta alguno de los datos a enviar (input vacío)
 } else {
-  echo json_encode(['status' => 'error', 'message' => 'Datos faltantes']);
+  echo json_encode(['status' => 'error', 'respuesta' => 'Datos faltantes']);
 }
 
 // Cerrar la conexión
