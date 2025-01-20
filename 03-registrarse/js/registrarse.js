@@ -24,7 +24,7 @@ const btnRegistrar = getEl("btnRegistrar");
 btnRegistrar.addEventListener("click", () => {
   // Valido inputs vacíos
   if (Libreria.hayInputsVacios()) {
-    Libreria.sweetAlertError("Faltan Datos...", "1em");
+    Libreria.sweetAlert('error', 'Faltan Datos...', '0.8em');
   } else {
     // Si los datos estan completos, los extraigo
     let datosUsuario = Libreria.obtenerDatosInputs();
@@ -34,22 +34,27 @@ btnRegistrar.addEventListener("click", () => {
       Libreria.emailValido(datosUsuario.referidoPor)
     ) {
       // Consulto que Email y Referente ingresados existan en la base de datos
-      Libreria.consultarDatos(datosUsuario, "php/validarEmails.php", (data) => {
+      Libreria.enviarDatosParaConsultas(datosUsuario, "php/validarEmails.php", (data) => {
         if (data.emailExists && data.referenteExists) {
-          Libreria.sweetAlertError("Email ya existe!",'0.8em');
+          Libreria.sweetAlert('error', 'Email ya existe!','0.8em');
         } else if (data.emailExists && !data.referenteExists) {
-          Libreria.sweetAlertError("Email ya existe, Referente no registrado!",'0.8em');
+          Libreria.sweetAlert('error', 'Email ya existe, Referente no registrado!','0.8em');
         } else if (!data.emailExists && !data.referenteExists) {
-          Libreria.sweetAlertError("Referente no registrado!",'0.8em');
+          Libreria.sweetAlert('error', 'Referente no registrado!','0.8em');
         } else {
-          Libreria.sweetAlertExito("Registro Exitoso!",'0.8em');
-          setTimeout(()=>{Libreria.redireccionarA('../00-enConstruccion/enConstruccion.html')}, 1500)
+          //Envio datos al servidor (base de datos)
+          Libreria.enviarDatosParaConsultas(datosUsuario, 'php/registrarse.php', (data)=>{
+            Libreria.sweetAlert('exito', 'Registro Exitoso!', '0.8em');
+            setTimeout(() => {
+              Libreria.redireccionarA('../00-enConstruccion/enConstruccion.html');
+            }, 1500);
+
+          });
         }
       });
 
-      // Libreria.enviarDatosServer(datosUsuario); //Envio datos al servidor (base de datos)
     } else {
-      Libreria.sweetAlertError("Email no válido", "1em");
+      Libreria.sweetAlert('error', 'Email no válido', '0.8em');
     }
   }
 });

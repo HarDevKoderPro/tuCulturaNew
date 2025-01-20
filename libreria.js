@@ -3,7 +3,7 @@
 // Clase de Funciones
 export class Libreria {
   // Redireccionar a página
-  static redireccionarA(ruta){
+  static redireccionarA(ruta) {
     window.location.href = ruta;
   }
 
@@ -39,34 +39,32 @@ export class Libreria {
     return datosUsuario;
   }
 
-  // SweetAlert de Error
-  static sweetAlertError(message, fontSize) {
+  // SweetAlert General
+  static sweetAlert(tipo, message, fontSize) {
+    // variables a ser modificadas
+    let icon, background, iconColor, color;
+    // Asigno estilos de acuerdo al tipo de alerta
+    if (tipo === "exito") {
+      icon = "success";
+      background = "#ABEBC6";
+      iconColor = "green";
+      color = "green";
+    } else if (tipo === "error") {
+      icon = "error";
+      background = "#E6B0AA";
+      iconColor = "red";
+      color = "red";
+    }
+    // Cuerpo general del mensaje
     Swal.fire({
       position: "center",
       width: "250px",
       heightAuto: false,
       showConfirmButton: false,
-      background: "#E6B0AA",
-      icon: "error",
-      iconColor: "red",
-      color: "red",
-      timer: 1300,
-      // Personaliza el tamaño del mensaje
-      html: `<div style="font-size: ${fontSize}; text-align: center; font-weight:bold">${message}</div>`,
-    });
-  }
-
-  // SweetAlert de Éxito
-  static sweetAlertExito(message, fontSize) {
-    Swal.fire({
-      position: "center",
-      width: "250px",
-      heightAuto: false,
-      showConfirmButton: false,
-      background: "#ABEBC6",
-      icon: "success",
-      iconColor: "green",
-      color: "green",
+      background: background,
+      icon: icon,
+      iconColor: iconColor,
+      color: color,
       timer: 1300,
       // Personaliza el tamaño del mensaje
       html: `<div style="font-size: ${fontSize}; text-align: center; font-weight:bold">${message}</div>`,
@@ -104,10 +102,11 @@ export class Libreria {
     });
   }
 
-  // Consultar Datos en Base de Datos
-  static consultarDatos(datosAEnviar, rutaPhp, callback) {
+  // Envío de datos para consultas
+  static enviarDatosParaConsultas(datosAEnviar, rutaPhp, callback) {
     // Envio de datos Js a variables PHP con fetch
     // Ruta con respecto al archivo html que se este utilizando
+    // El callback regresa la respuesta del server para ejecutar acciones
     fetch(rutaPhp, {
       method: "POST",
       headers: {
@@ -118,31 +117,10 @@ export class Libreria {
       // Respuesta desde archivo PHP (mensaje)
       .then((response) => response.json())
       .then((data) => {
+        // Respuesta en consola para pruebas (opcional)
         console.log("Respuesta PHP: ", data);
         // Ejecutar el callback con los datos recibidos
         callback(data);
-      })
-
-      // Captura de errores
-      .catch((error) => console.error("Error:", error));
-  }
-
-  // Enviar datos al servidor
-  static enviarDatosServer(datosUsuario) {
-    // Envio de datos Js a variables PHP con fetch
-    fetch("php/registrarse.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(datosUsuario),
-    })
-      // Respuesta desde archivo PHP (contenido variables PHP)
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log("Datos PHP: ", data);
-        Libreria.sweetAlertExito("Datos Enviados!", "1em");
-        Libreria.borrarInputs();
       })
 
       // Captura de errores
