@@ -30,7 +30,7 @@ btnIniciarSesion.addEventListener("click", () => {
         if(data.respuesta){
           Libreria.sweetAlert('exito', 'Acceso concedido!', '0.8em');
           setTimeout(() => {
-            Libreria.redireccionarA("../00-enConstruccion/enConstruccion.html");
+            Libreria.redireccionarA("../04-contenido/contenido.html");
           }, 1500);
         }else{
           Libreria.sweetAlert('error', 'Email o contraseña errados!', '0.8em');
