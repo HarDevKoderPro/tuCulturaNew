@@ -10,6 +10,9 @@ const inputPass = getEl("inputPass");
 const btnIniciarSesion = getEl("btnIniciarSesion");
 
 // Programa Principal
+
+Libreria.borrarInputs();
+
 btnIniciarSesion.addEventListener("click", () => {
   // Verifico que no hayan campos vacíos
   let hayInputsVacios = Libreria.hayInputsVacios();
@@ -28,6 +31,7 @@ btnIniciarSesion.addEventListener("click", () => {
       // Validación de Email y pass para permitir login del usuario
       Libreria.enviarDatosParaConsultas(usuarioAVerificar,"php/iniciarSesion.php", (data)=>{
         if(data.respuesta){
+          Libreria.borrarInputs();
           Libreria.sweetAlert('exito', 'Acceso concedido!', '0.8em');
           setTimeout(() => {
             Libreria.redireccionarA("../04-contenido/contenido.html");
