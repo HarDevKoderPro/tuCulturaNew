@@ -27,17 +27,30 @@ export class Libreria {
   // Obtener datos de los inputs
   static obtenerDatosInputs() {
     let datosUsuario = {
-      nombre: inputNombre.value,
-      apellido: inputApellido.value,
+      nombres: this.colocarMayusculaInicial(inputNombres.value),
+      apellidos: this.colocarMayusculaInicial(inputApellidos.value),
       documento: inputDocumento.value,
       telefono: inputTelefono.value,
       email: inputEmail.value,
       pass: inputPass.value,
-      referidoPor: inputReferidoPor.value,
+      referente: inputReferente.value,
     };
 
     return datosUsuario;
   }
+
+  // Colocar mayúscula Inicial a palabras de Texto
+  static colocarMayusculaInicial = (texto) => {
+    // Capitalizo letra inicial de cada palabra del texto
+    let resultado = "";
+    texto.split(" ").forEach((palabra) => {
+      resultado += `${palabra.charAt(0).toUpperCase()}${palabra
+        .substring(1)
+        .toLowerCase()} `;
+    });
+
+    return resultado;
+  };
 
   // SweetAlert General
   static sweetAlert(tipo, message, fontSize) {

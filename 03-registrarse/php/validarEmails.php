@@ -8,7 +8,7 @@ $mensaje = '';
 $host = "localhost"; // Desarrollo Local
 $user = "tucultur";      // Usuario de MySQL
 $password = "@GWMU!J4p-mgyTJ7";      // Contraseña de MySQL
-$dbname = "tucultur_pruebas"; // Nombre de la base de datos
+$dbname = "tucultur_Asociados"; // Nombre de la base de datos
 
 // Conectar a base de datos MySQL
 $conn = new mysqli($host, $user, $password, $dbname);
@@ -24,24 +24,24 @@ if ($conn->connect_error) {
 // Compruebo si existen los datos
 if (isset(
   $data['email'],
-  $data['referidoPor']
+  $data['referente']
 )) {
 
   // Paso contenido de variables JS a variables PHP
   // Elimino espacios al inicio y al final
   $email = trim($data['email']);
-  $referidoPor = trim($data['referidoPor']);
+  $referente = trim($data['referente']);
 
   // Sanitizo las variable para evitar inyección de código
   $email = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-  $referidoPor = htmlspecialchars($referidoPor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+  $referente = htmlspecialchars($referente, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
   // Consulto si el email ya existe
   $sqlEmail = "SELECT 1 FROM referentes WHERE email = '$email' LIMIT 1";
   $result = $conn->query($sqlEmail); // Resultado de la consulta
 
   // Consulto si el referente existe
-  $sqlReferente = "SELECT 1 FROM referentes WHERE email = '$referidoPor' LIMIT 1";
+  $sqlReferente = "SELECT 1 FROM referentes WHERE email = '$referente' LIMIT 1";
   $result2 = $conn->query($sqlReferente);  // Resultado de la consulta
 
   // Devolver ambos resultados en un solo JSON
