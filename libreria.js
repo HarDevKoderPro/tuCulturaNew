@@ -31,9 +31,9 @@ export class Libreria {
       apellidos: this.colocarMayusculaInicial(inputApellidos.value),
       documento: inputDocumento.value,
       telefono: inputTelefono.value,
-      email: inputEmail.value,
+      email: (inputEmail.value).toLowerCase(),
       pass: inputPass.value,
-      referente: inputReferente.value,
+      referente: (inputReferente.value).toLowerCase(),
     };
 
     return datosUsuario;
