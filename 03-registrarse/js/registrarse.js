@@ -57,7 +57,7 @@ btnRegistrar.addEventListener("click", () => {
                 Libreria.sweetAlert("exito", "Registro Exitoso!", "0.8em");
                 console.log(data.respuesta);
                 setTimeout(() => {
-                  Libreria.redireccionarA("../index.html"); 
+                  Libreria.redireccionarA("../index.html");
                 }, 1500);
               }
             );

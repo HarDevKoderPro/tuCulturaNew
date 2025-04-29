@@ -4,11 +4,11 @@ $data = json_decode(file_get_contents("php://input"), true);
 $respuesta = '';
 
 // Configurar credenciales de conexión a la base de datos
-//$host = "190.8.176.115"; // Desarrollo Remoto
-$host = "localhost"; // Desarrollo Local
+$host = "190.8.176.115"; // Desarrollo Remoto
+// $host = "localhost"; // Desarrollo Local
 $user = "tucultur";      // Usuario de MySQL
 $password = "@GWMU!J4p-mgyTJ7";      // Contraseña de MySQL
-$dbname = "tucultur_Asociados"; // Nombre de la base de datos
+$dbname = "tucultur_asociados"; // Nombre de la base de datos
 
 // Conectar a base de datos MySQL
 $conn = new mysqli($host, $user, $password, $dbname);
@@ -50,7 +50,6 @@ if (isset(
   $pass = htmlspecialchars($pass, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
   $referidoPor = htmlspecialchars($referente, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
-
   // Obtener la fecha actual en formato YYYY-MM-DD
   $fecha_actual = date("Y-m-d");
 
@@ -63,6 +62,13 @@ if (isset(
     $sqlInsertReferente = "INSERT INTO referentes (nombres, apellidos, email) VALUES ('$nombres', '$apellidos', '$email')";
     if ($conn->query($sqlInsertReferente) === TRUE) {
       $respuesta = 'Datos enviados exitosamente!';
+      // Actualizar el campo registros en la tabla referentes
+      $sqlIncrementarReferente = "UPDATE referentes SET registros = registros + 1 WHERE email = '$referente'";
+      if ($conn->query($sqlIncrementarReferente)) {
+        $respuesta = 'Datos enviados exitosamente!';
+      } else {
+        $respuesta = 'Usuario registrado pero error al actualizar referente: ' . $conn->error;
+      }
     } else {
       $respuesta = 'Error al almacenar el referente: ' . $conn->error;
     }
