@@ -8,6 +8,7 @@ const getEl = (id) => document.getElementById(id);
 const inputEmail = getEl("inputEmail");
 const inputPass = getEl("inputPass");
 const btnIniciarSesion = getEl("btnIniciarSesion");
+const linkOlvidastePass = getEl("linkOlvidastePass");
 
 // Programa Principal
 
@@ -43,3 +44,8 @@ btnIniciarSesion.addEventListener("click", () => {
     }
   }
 });
+
+linkOlvidastePass.addEventListener('click', (e)=>{
+  e.preventDefault();
+  alert('Vas a cambiar la contraseña...');
+})
