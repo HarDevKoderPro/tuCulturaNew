@@ -48,8 +48,12 @@ body {
   padding: 1px 16px;
 }
 
-.contenedorLinkSalir, .contenedorLinkEbook {
+.contenedorLinkSalir,
+.contenedorLinkEbook {
   padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .linkSalir,
