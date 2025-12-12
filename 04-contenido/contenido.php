@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+  echo "<script>window.location.href = '../02-iniciarSesion/iniciarSesion.html';</script>";
+  exit;
+}
+if (!isset($_SESSION['user_id'])) {
+  header("Location: ../02-iniciarSesion/iniciarSesion.html");
+  exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang='es'>
 
@@ -18,13 +31,17 @@
     <section class="encabezado">
 
       <div class="contenedorLinkSalir">
-        <a href="../index.html" class="linkSalir"><span class="icon-share iconos"></span> Salir</a>
+        <a href="./logout.php" class="linkSalir"><span class="icon-share iconos"></span> Salir</a>
       </div>
 
       <div class="contenedorDatosLogin">
         <span class="tituloPagina">Zona de Usuarios</span>
         <span class="icon-user"></span>
-        <span class="nombreUsuario">Nombre Usuario</span>
+
+        <span class="nombreUsuario">
+          <?php echo htmlspecialchars($_SESSION['nombres'] . ' ' . $_SESSION['apellidos']); ?>
+        </span>
+
       </div>
 
       <div class="contenedorLinkEbook">

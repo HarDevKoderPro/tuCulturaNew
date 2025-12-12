@@ -18,11 +18,11 @@ btnIniciarSesion.addEventListener("click", () => {
   // Verifico que no hayan campos vacíos
   let hayInputsVacios = Libreria.hayInputsVacios();
   if (hayInputsVacios) {
-    Libreria.sweetAlert('error', 'Faltan datos!', '0.8em');
+    Libreria.sweetAlert("error", "Faltan datos!", "0.8em");
   } else {
     let esEmailValido = Libreria.emailValido(inputEmail.value);
     if (!esEmailValido) {
-      Libreria.sweetAlert('error', 'Email no válido...', '0.8em');
+      Libreria.sweetAlert("error", "Email no válido...", "0.8em");
     } else {
       let usuarioAVerificar = {
         email: inputEmail.value,
@@ -30,22 +30,35 @@ btnIniciarSesion.addEventListener("click", () => {
       };
 
       // Validación de Email y pass para permitir login del usuario
-      Libreria.enviarDatosParaConsultas(usuarioAVerificar,"php/iniciarSesion.php", (data)=>{
-        if(data.respuesta){
-          Libreria.borrarInputs();
-          Libreria.sweetAlert('exito', 'Acceso concedido!', '0.8em');
-          setTimeout(() => {
-            Libreria.redireccionarA("../04-contenido/contenido.html");
-          }, 1500);
-        }else{
-          Libreria.sweetAlert('error', 'Email o contraseña errados!', '0.8em');
+      Libreria.enviarDatosParaConsultas(
+        usuarioAVerificar,
+        "php/iniciarSesion.php",
+        (data) => {
+          if (data.respuesta) {
+            Libreria.borrarInputs();
+            Libreria.sweetAlert("exito", "Acceso concedido!", "0.8em");
+            setTimeout(() => {
+              // Base del proyecto (lo que esté antes de /02-iniciarSesion/iniciarSesion.html)
+              const basePath = window.location.pathname.replace(
+                /\/02-iniciarSesion\/iniciarSesion\.html$/,
+                ""
+              );
+              Libreria.redireccionarA(`${basePath}/04-contenido/contenido.php`);
+            }, 1500);
+          } else {
+            Libreria.sweetAlert(
+              "error",
+              "Email o contraseña errados!",
+              "0.8em"
+            );
+          }
         }
-      });
+      );
     }
   }
 });
 
-linkOlvidastePass.addEventListener('click', (e)=>{
+linkOlvidastePass.addEventListener("click", (e) => {
   e.preventDefault();
-  alert('Vas a cambiar la contraseña...');
-})
+  alert("Vas a cambiar la contraseña...");
+});

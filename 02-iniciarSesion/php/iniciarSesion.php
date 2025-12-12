@@ -1,4 +1,7 @@
 <?php
+
+session_start(); // Inicia la sesión PHP
+
 // Obtener los datos a enviar JSON desde JavaScript
 $data = json_decode(file_get_contents("php://input"), true);
 $respuesta = '';
@@ -32,24 +35,48 @@ if (isset(
   $email = trim($data['email']);
   $pass = trim($data['pass']);
 
-  // Sanitizo las variable para evitar inyección de código
-  $email = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-  $pass = htmlspecialchars($pass, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+  // Preparar consulta segura (prepared statement)
+  // IMPORTANTE: Verifica que las columnas se llamen 'id', 'pass', 'nombres', 'apellidos'
+  $stmt = $conn->prepare("SELECT id, pass, nombres, apellidos FROM registros WHERE email = ? LIMIT 1");
 
-  // Realizo la consulta del Email (Primera consulta)
-  $sqlEmail = "SELECT 1 FROM registros WHERE email = '$email' LIMIT 1";
-  $result = $conn->query($sqlEmail); // Resultado de la consulta
-
-  // Realizo la consulta del password (Segunda consulta)
-  $sqlPassword = "SELECT 1 FROM registros WHERE pass = '$pass' LIMIT 1";
-  $result2 = $conn->query($sqlPassword);  // Resultado de la consulta
-
-  // Verifico si ambas consultas son correctas
-  if ($result && $result->num_rows > 0 && $result2 && $result2->num_rows > 0) {
-    echo json_encode(['respuesta' => true]); //devuelve true  
-  } else {
-    echo json_encode(['respuesta' => false]); //devuelve false  
+  // Verificar si la preparación falló
+  if ($stmt === false) {
+    die(json_encode(["respuesta" => false, "message" => "Error en la preparación: " . $conn->error]));
   }
+
+  // Vincular el parámetro email
+  $stmt->bind_param("s", $email);
+
+  // Ejecutar la consulta
+  $stmt->execute();
+
+  // Obtener el resultado
+  $result = $stmt->get_result();
+
+  // Verificar si se encontró un usuario con ese email
+  if ($result->num_rows > 0) {
+    $usuario = $result->fetch_assoc(); // Obtener datos del usuario
+
+    // Verificar la contraseña (comparación directa por ahora)
+    if ($pass === $usuario['pass']) {
+      // Login exitoso: guardar datos en la sesión
+      $_SESSION['user_id'] = $usuario['id'];
+      $_SESSION['email'] = $email;
+      $_SESSION['nombres'] = $usuario['nombres'];
+      $_SESSION['apellidos'] = $usuario['apellidos'];
+
+      echo json_encode(['respuesta' => true]); // Login exitoso
+    } else {
+      // Contraseña incorrecta
+      echo json_encode(['respuesta' => false]);
+    }
+  } else {
+    // Email no encontrado
+    echo json_encode(['respuesta' => false]);
+  }
+
+  // Cerrar el statement
+  $stmt->close();
 
   // Si el email consultado no existe...
 } else {
