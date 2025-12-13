@@ -26,6 +26,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
+
   <div class="container">
 
     <section class="encabezado">
@@ -51,15 +52,26 @@ if (!isset($_SESSION['user_id'])) {
 
     </section>
 
-    <section class="video">
-      <div class="textoVideo">TEXTO VIDEO</div>
-      <div class="contenidoMultimedia">
-        <div class="video">VIDEO</div>
-        <div class="tarjetasPublicidad">CARDS</div>
+    <section class="contenidoPromocional">
+
+      <div class="contenedorVideoPromocional">
+        <!-- <div class="tituloVideo">¿Quienes somos?</div> -->
+        <div class="video">
+          <video
+            controls
+            preload="metadata"
+            poster="./video/Thumbnail.png">
+            <source src="./video/GiraBienes.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+          </video>
+        </div>
       </div>
+
+      <div class="contenedorTarjetas">TARJETAS</div>
+
     </section>
 
-    <section class="ventas">
+    <section class="reporteVentas">
       <div class="scoreVentas">SCORE VENTAS</div>
       <div class="reporteVentas"></div>REPORTE VENTAS
     </section>
