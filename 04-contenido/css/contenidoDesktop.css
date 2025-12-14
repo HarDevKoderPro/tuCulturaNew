@@ -39,10 +39,9 @@ body {
 }
 
 .container > * {
-  /* min-height: 100%; */
-  box-shadow: 0px 4px 10px #757474;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); /* sombra propia del player */
 }
 
 .encabezado {
@@ -109,7 +108,6 @@ body {
 
 .contenidoPromocional {
   flex: 1 1 30%;
-  /* border: 1px solid red; */
   display: flex;
 }
 
@@ -120,7 +118,6 @@ body {
   justify-content: center;
   height: 100%;
   padding: 8px;
-  /* border: 1px solid red; */
 }
 
 .video {
@@ -144,8 +141,232 @@ body {
 
 .contenedorTarjetas {
   flex: 1 1 60%;
-  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
 }
+
+/* Tarjetas promocionales */
+.tarjeta {
+  flex: 0 1 32%;
+  max-width: 290px;
+  height: 260px;
+  perspective: 1000px; /* necesario luego para el efecto 3D */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tarjeta-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s; /* Transición suave para el giro */
+  transform-style: preserve-3d; /* Habilita el efecto 3D */
+}
+
+/* Estado girado de la tarjeta */
+.tarjeta-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.tarjeta-frontal,
+.tarjeta-trasera {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  position: absolute; /* Posiciona ambas caras una encima de la otra */
+  backface-visibility: hidden; /* Oculta la cara trasera cuando no está girada */
+  -webkit-backface-visibility: hidden; /* Para compatibilidad con navegadores */
+  border-radius: 10px; /* Bordes redondeados para las caras */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff; /* Fondo blanco para las tarjetas */
+}
+
+.tarjeta-trasera {
+  transform: rotateY(180deg); /* Rota la parte trasera 180 grados para que esté oculta */
+}
+
+.tarjeta-titulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #111827;
+  text-align: center; /* ¡Aquí está el cambio! */
+}
+
+.tarjeta-imagen {
+  height: 65%;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;          /* evita que se salga nada */
+}
+
+.tarjeta-imagen img {
+  max-width: 90%;            /* que no ocupe más del 90% del ancho del área */
+  max-height: 90%;           /* ni más del 90% del alto del área */
+  width: auto;               /* deja que la imagen mantenga su proporción */
+  height: auto;
+  object-fit: contain;       /* seguridad extra, aunque con width/height auto basta */
+  object-position: center;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.10)); /* opcional, relieve */
+}
+
+.tarjeta-footer {
+  font-size: 0.92rem;
+  margin-top: 4px;
+  padding: 6px 10px;
+  background-color: #3b82f6;      /* azul llamativo */
+  color: #fef3c7;                 /* texto claro tipo dorado suave */
+  border-radius: 999px;           /* píldora */
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.tarjeta-footer:hover {
+  background-color: #2563eb;      /* azul más intenso al hover */
+  transform: translateY(-1px);    /* pequeño “salto” */
+}
+
+.tarjeta-footer:active {
+  transform: translateY(1px) scale(0.98); /* efecto de clic */
+}
+
+/* ===== Cara trasera estilo e‑commerce ===== */
+
+.tarjeta-trasera {
+  background: #ffffff; /* Fondo blanco para la cara trasera */
+  color: #111827; /* Color de texto principal */
+  transform: rotateY(180deg); /* Asegura que esté girada inicialmente */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye el espacio verticalmente */
+  padding: 12px; /* Espaciado interno */
+  text-align: left; /* Alineación de texto */
+}
+
+/* Header de la parte trasera: categoría + icono carrito */
+.tarjeta-back-header {
+  display: flex;
+  justify-content: space-between; /* Espacio entre categoría y carrito */
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.tarjeta-categoria {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280; /* Color de texto gris */
+  background: #f3f4f6; /* Fondo gris claro para la etiqueta */
+  padding: 3px 8px;
+  border-radius: 999px; /* Forma de píldora */
+}
+
+/* Icono de carrito minimalista (sin fondo ni bordes) */
+.tarjeta-carrito {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1.4rem;           /* un pelín más grande */
+  cursor: pointer;
+  color: #111827;              /* mismo tono del texto principal */
+  opacity: 0.85;               /* ligeramente suavizado */
+  transition: transform 0.15s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.tarjeta-carrito:hover {
+  transform: scale(1.12);
+  color: #2563eb;
+  opacity: 1;
+}
+
+.tarjeta-carrito:active {
+  transform: scale(0.95); /* Efecto de clic */
+}
+
+/* Cuerpo de la parte trasera: nombre del producto + specs */
+.tarjeta-back-body {
+  flex: 1; /* Ocupa el espacio restante */
+  margin: 4px 0 8px 0;
+}
+
+.tarjeta-nombre {
+  font-size: 1.02rem;
+  font-weight: 650;
+  margin-bottom: 6px;
+  color: #0f172a;          /* un poco más oscuro */
+  text-align: center;      /* centrado en la tarjeta */
+  line-height: 1.25;       /* mejora legibilidad en 2 líneas */
+}
+
+.tarjeta-specs {
+  list-style: none; /* Quita los puntos de la lista por defecto */
+  padding: 0;
+  margin: 0;
+  font-size: 0.84rem;
+  color: #4b5563; /* Color de texto gris */
+}
+
+.tarjeta-specs li {
+  margin-bottom: 4px;
+  position: relative;
+  padding-left: 12px; /* Espacio para el punto personalizado */
+}
+
+.tarjeta-specs li::before {
+  content: "•"; /* Punto personalizado */
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #3b82f6; /* Color azul para el punto */
+}
+
+/* Footer de la parte trasera: precio + envío */
+.tarjeta-back-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;    /* mantiene el bloque a la izquierda */
+}
+
+.tarjeta-precio,
+.tarjeta-envio {
+  width: 100%;                /* ocupan todo el ancho del footer */
+  text-align: center;         /* centra el contenido dentro de ese ancho */
+}
+
+.tarjeta-precio {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.tarjeta-envio {
+  font-size: 0.8rem;
+  color: #10b981;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 .reporteVentas {
   flex: 1 1 60%;

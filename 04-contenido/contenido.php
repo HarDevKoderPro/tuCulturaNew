@@ -67,7 +67,145 @@ if (!isset($_SESSION['user_id'])) {
         </div>
       </div>
 
-      <div class="contenedorTarjetas">TARJETAS</div>
+      <div class="contenedorTarjetas">
+
+        <!-- Tarjeta 1 -->
+        <div class="tarjeta">
+          <div class="tarjeta-inner">
+            <!-- Parte Frontal -->
+            <div class="tarjeta-frontal">
+              <h3 class="tarjeta-titulo">Auriculares Inalámbricos Pro</h3>
+              <div class="tarjeta-imagen">
+                <img src="./images/audifonosInalambricos.png" alt="Producto 1">
+              </div>
+              <div class="tarjeta-footer">Más información ↓</div>
+            </div>
+            <!-- Parte Trasera -->
+            <div class="tarjeta-trasera">
+              <div class="tarjeta-back-header">
+                <span class="tarjeta-categoria">Audífonos</span>
+                <button class="tarjeta-carrito" aria-label="Agregar al carrito">🛒</button>
+              </div>
+
+              <div class="tarjeta-back-body">
+                <h3 class="tarjeta-nombre">Auriculares Inalámbricos Pro</h3>
+                <ul class="tarjeta-specs">
+                  <li>Bluetooth 5.3 de baja latencia</li>
+                  <li>Cancelación activa de ruido</li>
+                  <li>Hasta 24 horas con estuche</li>
+                </ul>
+              </div>
+
+              <div class="tarjeta-back-footer">
+                <span class="tarjeta-precio">$99.99</span>
+                <span class="tarjeta-envio">Envío gratis 24-48h</span>
+              </div>
+            </div>
+
+            <!-- <div class="tarjeta-trasera">
+              <h3 class="tarjeta-titulo">Especificaciones</h3>
+              <ul class="tarjeta-specs">
+                <li>Característica A</li>
+                <li>Característica B</li>
+                <li>Característica C</li>
+              </ul>
+              <p class="tarjeta-precio">$99.99</p>
+              <button class="tarjeta-carrito">🛒 Agregar</button>
+            </div> -->
+          </div>
+        </div>
+
+        <!-- Tarjeta 2 -->
+        <div class="tarjeta">
+          <div class="tarjeta-inner">
+            <div class="tarjeta-frontal">
+              <h3 class="tarjeta-titulo">Reloj Smart Fit X</h3>
+              <div class="tarjeta-imagen">
+                <img src="./images/smartWatch.png" alt="Producto 2">
+              </div>
+              <div class="tarjeta-footer">Más información ↓</div>
+            </div>
+
+            <div class="tarjeta-trasera">
+              <div class="tarjeta-back-header">
+                <span class="tarjeta-categoria">Smartwatch</span>
+                <button class="tarjeta-carrito" aria-label="Agregar al carrito">🛒</button>
+              </div>
+
+              <div class="tarjeta-back-body">
+                <h3 class="tarjeta-nombre">Reloj Smart Fit X</h3>
+                <ul class="tarjeta-specs">
+                  <li>Monitoreo cardíaco continuo</li>
+                  <li>Resistencia al agua 5 ATM</li>
+                  <li>Notificaciones en tiempo real</li>
+                </ul>
+              </div>
+
+              <div class="tarjeta-back-footer">
+                <span class="tarjeta-precio">$149.99</span>
+                <span class="tarjeta-envio">Devolución gratis 30 días</span>
+              </div>
+            </div>
+
+            <!-- <div class="tarjeta-trasera">
+              <h3 class="tarjeta-titulo">Especificaciones</h3>
+              <ul class="tarjeta-specs">
+                <li>Característica X</li>
+                <li>Característica Y</li>
+                <li>Característica Z</li>
+              </ul>
+              <p class="tarjeta-precio">$149.99</p>
+              <button class="tarjeta-carrito">🛒 Agregar</button>
+            </div> -->
+          </div>
+        </div>
+
+        <!-- Tarjeta 3 -->
+        <div class="tarjeta">
+          <div class="tarjeta-inner">
+            <div class="tarjeta-frontal">
+              <h3 class="tarjeta-titulo">Speaker Portátil 360º</h3>
+              <div class="tarjeta-imagen">
+                <img src="./images/bafleInalambrico.png" alt="Producto 3">
+              </div>
+              <div class="tarjeta-footer">Más información ↓</div>
+            </div>
+
+            <div class="tarjeta-trasera">
+              <div class="tarjeta-back-header">
+                <span class="tarjeta-categoria">Altavoz</span>
+                <button class="tarjeta-carrito" aria-label="Agregar al carrito">🛒</button>
+              </div>
+
+              <div class="tarjeta-back-body">
+                <h3 class="tarjeta-nombre">Speaker Portátil 360º</h3>
+                <ul class="tarjeta-specs">
+                  <li>Sonido 360° envolvente</li>
+                  <li>Batería hasta 12 horas</li>
+                  <li>Resistente a salpicaduras IPX5</li>
+                </ul>
+              </div>
+
+              <div class="tarjeta-back-footer">
+                <span class="tarjeta-precio">$199.99</span>
+                <span class="tarjeta-envio">Stock limitado</span>
+              </div>
+            </div>
+
+            <!-- <div class="tarjeta-trasera">
+              <h3 class="tarjeta-titulo">Especificaciones</h3>
+              <ul class="tarjeta-specs">
+                <li>Característica 1</li>
+                <li>Característica 2</li>
+                <li>Característica 3</li>
+              </ul>
+              <p class="tarjeta-precio">$199.99</p>
+              <button class="tarjeta-carrito">🛒 Agregar</button>
+            </div> -->
+          </div>
+        </div>
+
+      </div>
 
     </section>
 
@@ -80,7 +218,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-  <script src='js/script.js' type="module" defer></script>
+  <script src='js/contenido.js' defer></script>
 </body>
 
 </html>
