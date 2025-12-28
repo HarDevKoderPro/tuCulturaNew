@@ -29,6 +29,7 @@ if (!isset($_SESSION['user_id'])) {
 
   <div class="container">
 
+    <!-- Encabezado -->
     <section class="encabezado">
 
       <div class="contenedorLinkSalir">
@@ -52,6 +53,7 @@ if (!isset($_SESSION['user_id'])) {
 
     </section>
 
+    <!-- Sección Promocional -->
     <section class="contenidoPromocional">
 
       <div class="contenedorVideoPromocional">
@@ -80,6 +82,7 @@ if (!isset($_SESSION['user_id'])) {
               </div>
               <div class="tarjeta-footer">Más información ↓</div>
             </div>
+
             <!-- Parte Trasera -->
             <div class="tarjeta-trasera">
               <div class="tarjeta-back-header">
@@ -101,17 +104,6 @@ if (!isset($_SESSION['user_id'])) {
                 <span class="tarjeta-envio">Envío gratis 24-48h</span>
               </div>
             </div>
-
-            <!-- <div class="tarjeta-trasera">
-              <h3 class="tarjeta-titulo">Especificaciones</h3>
-              <ul class="tarjeta-specs">
-                <li>Característica A</li>
-                <li>Característica B</li>
-                <li>Característica C</li>
-              </ul>
-              <p class="tarjeta-precio">$99.99</p>
-              <button class="tarjeta-carrito">🛒 Agregar</button>
-            </div> -->
           </div>
         </div>
 
@@ -146,17 +138,6 @@ if (!isset($_SESSION['user_id'])) {
                 <span class="tarjeta-envio">Devolución gratis 30 días</span>
               </div>
             </div>
-
-            <!-- <div class="tarjeta-trasera">
-              <h3 class="tarjeta-titulo">Especificaciones</h3>
-              <ul class="tarjeta-specs">
-                <li>Característica X</li>
-                <li>Característica Y</li>
-                <li>Característica Z</li>
-              </ul>
-              <p class="tarjeta-precio">$149.99</p>
-              <button class="tarjeta-carrito">🛒 Agregar</button>
-            </div> -->
           </div>
         </div>
 
@@ -192,26 +173,18 @@ if (!isset($_SESSION['user_id'])) {
               </div>
             </div>
 
-            <!-- <div class="tarjeta-trasera">
-              <h3 class="tarjeta-titulo">Especificaciones</h3>
-              <ul class="tarjeta-specs">
-                <li>Característica 1</li>
-                <li>Característica 2</li>
-                <li>Característica 3</li>
-              </ul>
-              <p class="tarjeta-precio">$199.99</p>
-              <button class="tarjeta-carrito">🛒 Agregar</button>
-            </div> -->
           </div>
+          
         </div>
 
       </div>
 
     </section>
 
-    <section class="reporteVentas">
-      <div class="scoreVentas">SCORE VENTAS</div>
-      <div class="reporteVentas"></div>REPORTE VENTAS
+    <!-- Seccion de reportes -->
+    <section class="reportes">
+      <div class="balanceGeneral"></div>
+      <div class="tablaRegistros"></div>
     </section>
 
   </div>

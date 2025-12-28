@@ -357,17 +357,20 @@ body {
   color: #10b981;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-.reporteVentas {
+.reportes {
   flex: 1 1 60%;
+  display: flex;
+  justify-content: center;
+}
+
+.balanceGeneral{
+  border: 1px solid red;
+  flex: 1 1 20%;
+  padding: 10PX;
+}
+
+.tablaRegistros{
+  border: 1px solid red;
+  flex: 1 1 80%;
+  padding: 10PX;
 }
