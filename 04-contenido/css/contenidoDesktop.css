@@ -21,7 +21,6 @@ html {
 /* Configuracion del Body */
 body {
   background: lightsteelblue;
-
   font-family: miFuente;
   font-size: 100%;
 }
@@ -31,7 +30,7 @@ body {
   height: 100vh;
   max-width: 1200px; /* limita ancho máximo en desktop */
   min-height: 100vh; /* que al menos ocupe toda la altura de la pantalla */
-  padding: 8px 0;
+  padding: 3px 0;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -44,6 +43,7 @@ body {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); /* sombra propia del player */
 }
 
+/* SECCIÓN DE LA CABECERA */
 .encabezado {
   flex: 1 1 10%;
   background: linear-gradient(to bottom, #1e3a8a 0%, #3b82f6 70%, #60a5fa 100%);
@@ -106,10 +106,14 @@ body {
   font-weight: bold;
 }
 
+/* SECCION DE CONYENIDO PROMOCIONAL */
+
 .contenidoPromocional {
   flex: 1 1 30%;
   display: flex;
 }
+
+/* SECCION DEL VIDEO INSTITUCIONAL */
 
 .contenedorVideoPromocional {
   flex: 1 1 40%;
@@ -138,6 +142,8 @@ body {
   height: auto; /* mejor auto para mantener ratio exacto */
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); /* sombra propia del player */
 }
+
+/* SECCION DE TARJETAS DE PRODUCTOS DESTACADOS */
 
 .contenedorTarjetas {
   flex: 1 1 60%;
@@ -190,7 +196,9 @@ body {
 }
 
 .tarjeta-trasera {
-  transform: rotateY(180deg); /* Rota la parte trasera 180 grados para que esté oculta */
+  transform: rotateY(
+    180deg
+  ); /* Rota la parte trasera 180 grados para que esté oculta */
 }
 
 .tarjeta-titulo {
@@ -207,35 +215,37 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;          /* evita que se salga nada */
+  overflow: hidden; /* evita que se salga nada */
 }
 
 .tarjeta-imagen img {
-  max-width: 90%;            /* que no ocupe más del 90% del ancho del área */
-  max-height: 90%;           /* ni más del 90% del alto del área */
-  width: auto;               /* deja que la imagen mantenga su proporción */
+  max-width: 90%; /* que no ocupe más del 90% del ancho del área */
+  max-height: 90%; /* ni más del 90% del alto del área */
+  width: auto; /* deja que la imagen mantenga su proporción */
   height: auto;
-  object-fit: contain;       /* seguridad extra, aunque con width/height auto basta */
+  object-fit: contain; /* seguridad extra, aunque con width/height auto basta */
   object-position: center;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.10)); /* opcional, relieve */
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1)); /* opcional, relieve */
 }
 
 .tarjeta-footer {
   font-size: 0.92rem;
   margin-top: 4px;
   padding: 6px 10px;
-  background-color: #3b82f6;      /* azul llamativo */
-  color: #fef3c7;                 /* texto claro tipo dorado suave */
-  border-radius: 999px;           /* píldora */
+  background-color: #3b82f6; /* azul llamativo */
+  color: #fef3c7; /* texto claro tipo dorado suave */
+  border-radius: 999px; /* píldora */
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.25s ease, transform 0.15s ease;
+  transition:
+    background-color 0.25s ease,
+    transform 0.15s ease;
 }
 
 .tarjeta-footer:hover {
-  background-color: #2563eb;      /* azul más intenso al hover */
-  transform: translateY(-1px);    /* pequeño “salto” */
+  background-color: #2563eb; /* azul más intenso al hover */
+  transform: translateY(-1px); /* pequeño “salto” */
 }
 
 .tarjeta-footer:active {
@@ -278,11 +288,14 @@ body {
   background: transparent;
   border: none;
   padding: 0;
-  font-size: 1.4rem;           /* un pelín más grande */
+  font-size: 1.4rem; /* un pelín más grande */
   cursor: pointer;
-  color: #111827;              /* mismo tono del texto principal */
-  opacity: 0.85;               /* ligeramente suavizado */
-  transition: transform 0.15s ease, color 0.2s ease, opacity 0.2s ease;
+  color: #111827; /* mismo tono del texto principal */
+  opacity: 0.85; /* ligeramente suavizado */
+  transition:
+    transform 0.15s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .tarjeta-carrito:hover {
@@ -305,9 +318,9 @@ body {
   font-size: 1.02rem;
   font-weight: 650;
   margin-bottom: 6px;
-  color: #0f172a;          /* un poco más oscuro */
-  text-align: center;      /* centrado en la tarjeta */
-  line-height: 1.25;       /* mejora legibilidad en 2 líneas */
+  color: #0f172a; /* un poco más oscuro */
+  text-align: center; /* centrado en la tarjeta */
+  line-height: 1.25; /* mejora legibilidad en 2 líneas */
 }
 
 .tarjeta-specs {
@@ -337,13 +350,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  align-items: flex-start;    /* mantiene el bloque a la izquierda */
+  align-items: flex-start; /* mantiene el bloque a la izquierda */
 }
 
 .tarjeta-precio,
 .tarjeta-envio {
-  width: 100%;                /* ocupan todo el ancho del footer */
-  text-align: center;         /* centra el contenido dentro de ese ancho */
+  width: 100%; /* ocupan todo el ancho del footer */
+  text-align: center; /* centra el contenido dentro de ese ancho */
 }
 
 .tarjeta-precio {
@@ -363,14 +376,61 @@ body {
   justify-content: center;
 }
 
-.balanceGeneral{
-  border: 1px solid red;
+/* ESTILOS DE LOS REPORTES GENERALES DE VENTAS */
+.balanceGeneral {
   flex: 1 1 20%;
-  padding: 10PX;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 10px;
+  margin: 5px auto;
+  max-width: 900px;
 }
 
-.tablaRegistros{
+/* Estilo de cada card */
+.stat-card {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+/* Efecto hover para dar sensación 3D */
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 10px 18px rgba(0, 0, 0, 0.25),
+    inset 0 2px 6px rgba(255, 255, 255, 0.8);
+}
+
+/* Títulos */
+.stat-card h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+
+/* Valores */
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0077cc;
+}
+
+/* ESTILOS DE LA TABLA DE REGISTROS DEL USUARIO */
+.tablaRegistros {
   border: 1px solid red;
   flex: 1 1 80%;
-  padding: 10PX;
+  padding: 10px;
 }

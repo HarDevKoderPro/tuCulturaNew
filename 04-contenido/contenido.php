@@ -174,7 +174,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
 
           </div>
-          
+
         </div>
 
       </div>
@@ -183,7 +183,27 @@ if (!isset($_SESSION['user_id'])) {
 
     <!-- Seccion de reportes -->
     <section class="reportes">
-      <div class="balanceGeneral"></div>
+
+      <div class="balanceGeneral">
+
+        <div class="stat-card">
+          <h3>Registros del Sistema</h3>
+          <p class="stat-value">40</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>Registros de Usuario</h3>
+          <p class="stat-value">23</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>Registros de Referidos</h3>
+          <p class="stat-value">10</p>
+        </div>
+
+      </div>
+
+
       <div class="tablaRegistros"></div>
     </section>
 
