@@ -19,8 +19,8 @@ if (!isset($_SESSION['user_id'])) {
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0'>
   <title>Contenido Usuarios</title>
-  <link rel='stylesheet' href='./css/contenidoDesktop.css'>
-  <link rel="stylesheet" href="./css/contenidoMobile.css">
+  <link rel='stylesheet' href='../css/contenidoDesktop.css'>
+  <link rel="stylesheet" href="../css/contenidoMobile.css">
   <link rel="stylesheet" href="../01-principal/css/fonts.css">
   <link rel="shortcut icon" href="../01-principal/imagenes/LogoTCPCircle.png" type="image/x-icon">
 </head>
@@ -47,8 +47,8 @@ if (!isset($_SESSION['user_id'])) {
       </div>
 
       <div class="contenedorLinkEbook">
-        <a href="../04-contenido/libros/Creatividad Motivacional.epub" download="Creatividad Motivacional" class="linkEbook">Ebook <span class="icon-download iconos"></span></a>
-        <a href="../04-contenido/libros/Creatividad-Motivacional.pdf" download="Creatividad Motivacional" class="linkEbook">PDF <span class="icon-download iconos"></span></a>
+        <a href="../../04-contenido/libros/Creatividad Motivacional.epub" download="Creatividad Motivacional" class="linkEbook">Ebook <span class="icon-download iconos"></span></a>
+        <a href="../../04-contenido/libros/Creatividad-Motivacional.pdf" download="Creatividad Motivacional" class="linkEbook">PDF <span class="icon-download iconos"></span></a>
       </div>
 
     </section>
@@ -62,8 +62,8 @@ if (!isset($_SESSION['user_id'])) {
           <video
             controls
             preload="metadata"
-            poster="./video/Thumbnail.png">
-            <source src="./video/GiraBienes.mp4" type="video/mp4">
+            poster="../video/Thumbnail.png">
+            <source src="../video/GiraBienes.mp4" type="video/mp4">
             Tu navegador no soporta el elemento de video.
           </video>
         </div>
@@ -78,7 +78,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="tarjeta-frontal">
               <h3 class="tarjeta-titulo">Auriculares Inalámbricos Pro</h3>
               <div class="tarjeta-imagen">
-                <img src="./images/audifonosInalambricos.png" alt="Producto 1">
+                <img src="../images/audifonosInalambricos.png" alt="Producto 1">
               </div>
               <div class="tarjeta-footer">Más información ↓</div>
             </div>
@@ -113,7 +113,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="tarjeta-frontal">
               <h3 class="tarjeta-titulo">Reloj Smart Fit X</h3>
               <div class="tarjeta-imagen">
-                <img src="./images/smartWatch.png" alt="Producto 2">
+                <img src="../images/smartWatch.png" alt="Producto 2">
               </div>
               <div class="tarjeta-footer">Más información ↓</div>
             </div>
@@ -147,7 +147,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="tarjeta-frontal">
               <h3 class="tarjeta-titulo">Speaker Portátil 360º</h3>
               <div class="tarjeta-imagen">
-                <img src="./images/bafleInalambrico.png" alt="Producto 3">
+                <img src="../images/bafleInalambrico.png" alt="Producto 3">
               </div>
               <div class="tarjeta-footer">Más información ↓</div>
             </div>
@@ -211,7 +211,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-  <script src='js/contenido.js' defer></script>
+  <script src='../js/contenido.js' defer></script>
 </body>
 
 </html>

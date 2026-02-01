@@ -22,5 +22,5 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Redirigir al login
-header("Location: ../02-iniciarSesion/iniciarSesion.html");
+header("Location: ../../02-iniciarSesion/iniciarSesion.html");
 exit;

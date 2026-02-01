@@ -43,7 +43,7 @@ btnIniciarSesion.addEventListener("click", () => {
                 /\/02-iniciarSesion\/iniciarSesion\.html$/,
                 ""
               );
-              Libreria.redireccionarA(`${basePath}/04-contenido/contenido.php`);
+              Libreria.redireccionarA(`${basePath}/04-contenido/php/contenido.php`);
             }, 1500);
           } else {
             Libreria.sweetAlert(
