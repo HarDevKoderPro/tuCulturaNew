@@ -4,8 +4,8 @@ $data = json_decode(file_get_contents("php://input"), true);
 $mensaje = '';
 
 // Configurar credenciales de conexión a la base de datos
-// $host = "190.8.176.115"; // Desarrollo Remoto
-$host = "localhost"; // Desarrollo Local
+// $host = "localhost"; // Desarrollo Local
+$host = "190.8.176.115"; // Desarrollo Remoto
 $user = "tucultur";      // Usuario de MySQL
 $password = "@GWMU!J4p-mgyTJ7";      // Contraseña de MySQL
 $dbname = "tucultur_asociados"; // Nombre de la base de datos
