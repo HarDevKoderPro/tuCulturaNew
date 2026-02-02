@@ -50,8 +50,8 @@ if (isset(
   $pass = htmlspecialchars($pass, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
   $referidoPor = htmlspecialchars($referente, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
-  // Obtener la fecha actual en formato YYYY-MM-DD
-  $fecha_actual = date("Y-m-d");
+  // Extraer fecha enviada por el navegador
+  $fecha_actual = isset($data['fecha']) ? $data['fecha'] : date("Y-m-d");
 
   // Insertar datos en la tabla registros (primera consulta)
   $sqlInsertRegistro = "INSERT INTO registros (nombres, apellidos, documento, telefono, email, pass, referente, fecha) 
@@ -62,13 +62,15 @@ if (isset(
     $sqlInsertReferente = "INSERT INTO referentes (nombres, apellidos, email) VALUES ('$nombres', '$apellidos', '$email')";
     if ($conn->query($sqlInsertReferente) === TRUE) {
       $respuesta = 'Datos enviados exitosamente!';
-      // Actualizar el campo registros en la tabla referentes
-      $sqlIncrementarReferente = "UPDATE referentes SET registros = registros + 1 WHERE email = '$referente'";
-      if ($conn->query($sqlIncrementarReferente)) {
-        $respuesta = 'Datos enviados exitosamente!';
-      } else {
-        $respuesta = 'Usuario registrado pero error al actualizar referente: ' . $conn->error;
-      }
+
+      // // Actualizar el campo registros en la tabla referentes
+      // $sqlIncrementarReferente = "UPDATE referentes SET registros = registros + 1 WHERE email = '$referente'";
+      // if ($conn->query($sqlIncrementarReferente)) {
+      //   $respuesta = 'Datos enviados exitosamente!';
+      // } else {
+      //   $respuesta = 'Usuario registrado pero error al actualizar referente: ' . $conn->error;
+      // }
+      
     } else {
       $respuesta = 'Error al almacenar el referente: ' . $conn->error;
     }

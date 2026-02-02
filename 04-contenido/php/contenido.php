@@ -2,13 +2,18 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-  echo "<script>window.location.href = '../02-iniciarSesion/iniciarSesion.html';</script>";
-  exit;
-}
-if (!isset($_SESSION['user_id'])) {
   header("Location: ../02-iniciarSesion/iniciarSesion.html");
   exit;
 }
+
+// Incluir conexión y funciones
+include './conexion.php';
+
+// Guardo los valores traídos desde la base de datos
+$totalRegistros = contarRegistros($conn);
+$totalUsuario = contarRegistrosUsuario($conn, $_SESSION['email']);
+$totalReferidosDirectos = contarRegistrosDeReferidos($conn, $_SESSION['email']);
+$totalReferidosMultinivel = contarRegistrosDeReferidosMultinivel($conn, $_SESSION['email']);
 ?>
 
 <!DOCTYPE html>
@@ -186,20 +191,30 @@ if (!isset($_SESSION['user_id'])) {
 
       <div class="balanceGeneral">
 
+        <!-- Registros Totales del sistema -->
         <div class="stat-card">
           <h3>Registros del Sistema</h3>
-          <p class="stat-value">40</p>
+          <p class="stat-value"><?php echo $totalRegistros; ?></p>
         </div>
 
+        <!-- Registros de Nivel 1 -->
         <div class="stat-card">
-          <h3>Registros de Usuario</h3>
-          <p class="stat-value">23</p>
+          <h3>Registros Nivel 1</h3>
+          <p class="stat-value"><?php echo $totalUsuario; ?></p>
         </div>
 
+        <!-- Registros de Nivel 2 -->
         <div class="stat-card">
-          <h3>Registros de Referidos</h3>
-          <p class="stat-value">10</p>
+          <h3>Registros Nivel 2</h3>
+          <p class="stat-value"><?php echo $totalReferidosDirectos; ?></p>
         </div>
+
+        <!-- Registros Nivel 3 -->
+        <div class="stat-card">
+          <h3>Registros Nivel 3</h3>
+          <p class="stat-value"><?php echo $totalReferidosMultinivel; ?></p>
+        </div>
+
 
       </div>
 

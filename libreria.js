@@ -26,14 +26,25 @@ export class Libreria {
 
   // Obtener datos de los inputs
   static obtenerDatosInputs() {
+    // Obtener fecha local del usuario en formato YYYY-MM-DD
+    const hoy = new Date();
+    const fechaLocal =
+      hoy.getFullYear() +
+      "-" +
+      String(hoy.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(hoy.getDate()).padStart(2, "0");
+
+    // Armo un objeto con los datos a enviar al servidor
     let datosUsuario = {
       nombres: this.colocarMayusculaInicial(inputNombres.value),
       apellidos: this.colocarMayusculaInicial(inputApellidos.value),
       documento: inputDocumento.value,
       telefono: inputTelefono.value,
-      email: (inputEmail.value).toLowerCase(),
+      email: inputEmail.value.toLowerCase(),
       pass: inputPass.value,
-      referente: (inputReferente.value).toLowerCase(),
+      referente: inputReferente.value.toLowerCase(),
+      fecha: fechaLocal, // 👈 ahora se guarda la fecha local del navegador
     };
 
     return datosUsuario;
