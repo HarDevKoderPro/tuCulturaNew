@@ -64,33 +64,39 @@ function contarRegistrosDeReferidos($conn, $emailUsuario)
   return 0;
 }
 
-// Función para contar registros NIVEL 3 (solo hasta nivel 3)
-function contarRegistrosDeReferidosMultinivel($conn, $emailUsuario)
+// Función para contar registros de referidos en Nivel 3 sin usar recursividad SQL
+function contarReferidosNivel3($conn, $emailUsuario)
 {
-  $sql = "WITH RECURSIVE Referidos (email, referente, nivel) AS (
-                -- Nivel inicial: referidos directos del usuario logueado
-                SELECT email, referente, 1 AS nivel
-                FROM registros
-                WHERE referente = '$emailUsuario'
-                  AND email <> '$emailUsuario'
+  $total = 0;
 
-                UNION ALL
+  // 1. Obtener referidos de nivel 1 (directos del usuario logueado)
+  $sqlNivel1 = "SELECT email FROM registros WHERE referente = '$emailUsuario' AND email <> '$emailUsuario'";
+  $resNivel1 = $conn->query($sqlNivel1);
 
-                -- Niveles siguientes: referidos de los referidos
-                SELECT r.email, r.referente, Referidos.nivel + 1
-                FROM registros r
-                INNER JOIN Referidos ON r.referente = Referidos.email
-                WHERE Referidos.nivel < 3   -- límite: solo hasta nivel 3
-            )
-            SELECT COUNT(*) AS totalReferidos
-            FROM registros
-            WHERE email IN (SELECT email FROM Referidos WHERE nivel = 3)";
+  if ($resNivel1) {
+    while ($row1 = $resNivel1->fetch_assoc()) {
+      $emailNivel1 = $row1['email'];
 
-  $result = $conn->query($sql);
+      // 2. Obtener referidos de nivel 2 (hijos de nivel 1)
+      $sqlNivel2 = "SELECT email FROM registros WHERE referente = '$emailNivel1'";
+      $resNivel2 = $conn->query($sqlNivel2);
 
-  if ($result) {
-    $row = $result->fetch_assoc();
-    return $row['totalReferidos'];
+      if ($resNivel2) {
+        while ($row2 = $resNivel2->fetch_assoc()) {
+          $emailNivel2 = $row2['email'];
+
+          // 3. Contar registros de nivel 3 (hijos de nivel 2)
+          $sqlNivel3 = "SELECT COUNT(*) AS total FROM registros WHERE referente = '$emailNivel2'";
+          $resNivel3 = $conn->query($sqlNivel3);
+
+          if ($resNivel3) {
+            $row3 = $resNivel3->fetch_assoc();
+            $total += $row3['total'];
+          }
+        }
+      }
+    }
   }
-  return 0;
+
+  return $total;
 }

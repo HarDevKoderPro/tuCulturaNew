@@ -13,7 +13,7 @@ include './conexion.php';
 $totalRegistros = contarRegistros($conn);
 $totalUsuario = contarRegistrosUsuario($conn, $_SESSION['email']);
 $totalReferidosDirectos = contarRegistrosDeReferidos($conn, $_SESSION['email']);
-$totalReferidosMultinivel = contarRegistrosDeReferidosMultinivel($conn, $_SESSION['email']);
+$totalReferidosNivel3 = contarReferidosNivel3($conn, $_SESSION['email']); // Nivel 3
 ?>
 
 <!DOCTYPE html>
@@ -212,7 +212,7 @@ $totalReferidosMultinivel = contarRegistrosDeReferidosMultinivel($conn, $_SESSIO
         <!-- Registros Nivel 3 -->
         <div class="stat-card">
           <h3>Registros Nivel 3</h3>
-          <p class="stat-value"><?php echo $totalReferidosMultinivel; ?></p>
+          <p class="stat-value"><?php echo $totalReferidosNivel3; ?></p>
         </div>
 
 
