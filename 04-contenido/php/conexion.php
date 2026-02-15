@@ -1,7 +1,7 @@
 <?php
 // Configuración de conexión
-// $host = "localhost";
- $host = "190.8.176.115"; // Desarrollo Remoto
+$host = "localhost";
+//  $host = "190.8.176.115"; // Desarrollo Remoto
 $user = "tucultur";
 $password = "@GWMU!J4p-mgyTJ7";
 $dbname = "tucultur_asociados";
