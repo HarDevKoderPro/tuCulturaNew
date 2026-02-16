@@ -62,15 +62,6 @@ if (isset(
     $sqlInsertReferente = "INSERT INTO referentes (nombres, apellidos, email) VALUES ('$nombres', '$apellidos', '$email')";
     if ($conn->query($sqlInsertReferente) === TRUE) {
       $respuesta = 'Datos enviados exitosamente!';
-
-      // // Actualizar el campo registros en la tabla referentes
-      // $sqlIncrementarReferente = "UPDATE referentes SET registros = registros + 1 WHERE email = '$referente'";
-      // if ($conn->query($sqlIncrementarReferente)) {
-      //   $respuesta = 'Datos enviados exitosamente!';
-      // } else {
-      //   $respuesta = 'Usuario registrado pero error al actualizar referente: ' . $conn->error;
-      // }
-      
     } else {
       $respuesta = 'Error al almacenar el referente: ' . $conn->error;
     }
