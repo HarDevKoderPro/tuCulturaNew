@@ -27,7 +27,7 @@ $totalReferidosNivel3 = contarReferidosNivel3($conn, $_SESSION['email']); // Niv
   <link rel='stylesheet' href='../css/contenidoDesktop.css'>
   <link rel="stylesheet" href="../css/contenidoMobile.css">
   <link rel="stylesheet" href="../01-principal/css/fonts.css">
-  <link rel="shortcut icon" href="../01-principal/imagenes/LogoTCPCircle.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../../01-principal/imagenes/LogoTCPCircle.png" type="image/x-icon">
 </head>
 
 <body>
